@@ -1,0 +1,4 @@
+credentials_path: Athreya-task/FastAPI/modified_creds.json
+lock_limit: 3
+mongo_url: mongodb://localhost:27017/
+data_source: mongo          #change to "json" or "mongo" if needed

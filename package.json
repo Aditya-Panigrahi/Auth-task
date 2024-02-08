@@ -1,0 +1,18 @@
+{
+  "name": "fastapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:fastapi": "uvicorn fast_api:app --reload",
+    "start:httpserver": "python -m http.server",
+    "start": "concurrently \"npm run start:fastapi\" \"npm run start:httpserver\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

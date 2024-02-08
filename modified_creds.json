@@ -1,0 +1,28 @@
+{
+  "credentials": {
+    "John": {
+      "username": "John",
+      "password": "John",
+      "successful_attempts": 0,
+      "unsuccessful_attempts": 0,
+      "lock_attempts": 0
+    },
+    "Jane": {
+      "username": "Jane",
+      "password": "Jane",
+      "successful_attempts": 0,
+      "unsuccessful_attempts": 0,
+      "lock_attempts": 0
+    },
+    "Bob": {
+      "username": "Bob",
+      "password": "Bob",
+      "successful_attempts": 0,
+      "unsuccessful_attempts": 0,
+      "lock_attempts": 0
+    }
+  },
+  "locked_list": [
+    "Aditya"
+  ]
+}
