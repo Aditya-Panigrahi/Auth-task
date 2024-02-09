@@ -16,16 +16,20 @@ app.add_middleware(
 @app.post("/login")
 async def login(user_detail=Body()):
     credentials, locked_accounts = class_obj.dload_creds()
-    try:
-        stored_username = next(user for user, data in credentials.items() if data["username"] == user_detail['username'])
-    except:
-        return{"message":"User not found","status":"error"}
-    if stored_username:
-        if user_detail['username'] in locked_accounts:
-            #raise HTTPException(status_code=404, detail="Account is locked") 
-            return {"message": "Account is locked","status":"error"}
-        response,status = Authenticator.password_auth(stored_username, user_detail['password'])
-        return {"message": response,"status": status}
+    if user_detail['username'] == 'admin' and user_detail['password'] == 'admin':
+        return {"message": locked_accounts,"status":"admin"}
+    
+    else:
+        try:
+            stored_username = next(user for user, data in credentials.items() if data["username"] == user_detail['username'])
+        except:
+            return{"message":"User not found","status":"error"}
+        if stored_username:
+            if user_detail['username'] in locked_accounts:
+                #raise HTTPException(status_code=404, detail="Account is locked") 
+                return {"message": "Account is locked","status":"error"}
+            response,status = Authenticator.password_auth(stored_username, user_detail['password'])
+            return {"message": response,"status": status}
     
 
 #uvicorn fast_api:app --reload

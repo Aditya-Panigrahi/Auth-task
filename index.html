@@ -118,9 +118,17 @@
             else if (data.status === "fail") {
                 new Noty({
                     type: 'error',
-                    text: data.message,
+                    text: "Invalid Credentials. Please check again."
                 }).show();
                 
+            }
+
+            else if (data.status === "admin") {
+                new Noty({
+                    type: 'success',
+                    text: "Welcome Admin."
+                }).show();
+                window.location.href = 'success.html?message=' + encodeURIComponent(data.message);
             }
 
             else if (data.status === "success") {
