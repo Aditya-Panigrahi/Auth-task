@@ -103,6 +103,7 @@
                 new Noty({
                     type: 'error',
                     text: 'User not found. Please check your credentials.',
+                    timeout: 3000
                 }).show();
                 
             }
@@ -111,6 +112,7 @@
                 new Noty({
                     type: 'error',
                     text: 'This is a locked account. Please contact the IT admin to respawn the user',
+                    timeout: 3000
                 }).show();
                 
             }
@@ -118,7 +120,8 @@
             else if (data.status === "fail") {
                 new Noty({
                     type: 'error',
-                    text: "Invalid Credentials. Please check again."
+                    text: "Invalid Credentials. Please check again.",
+                    timeout: 3000
                 }).show();
                 
             }
@@ -126,7 +129,8 @@
             else if (data.status === "admin") {
                 new Noty({
                     type: 'success',
-                    text: "Welcome Admin."
+                    text: "Welcome Admin. Redirecting to success page.",
+                    timeout: 3000
                 }).show();
                 window.location.href = 'success.html?message=' + encodeURIComponent(data.message);
             }
@@ -135,7 +139,8 @@
             // Login successful
             new Noty({
                 type: 'success',
-                text: data.message
+                text: data.message,
+                timeout: 3000
             }).show();
 
             window.location.href = 'success.html?message=' + encodeURIComponent(data.message);
@@ -147,6 +152,7 @@
                 new Noty({
                     type: 'error',
                     text: data.message,
+                    timeout: 3000
                 }).show();
             }
         } catch (error) {
@@ -155,6 +161,7 @@
             new Noty({
                 type: 'error',
                 text: 'An error occurred during login.',
+                timeout: 3000
             }).show();
         }
 }

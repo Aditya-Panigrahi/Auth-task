@@ -6,3 +6,6 @@ Commands:
 Create .exe file -> pyinstaller --onefile run_app.py
 Run http server -> python -m http.server
 Start Fast API -> uvicorn fast_api:app --reload
+Switch to .venv in VS Code -> Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+                           -> cd ./venv/Scripts
+                           -> activate

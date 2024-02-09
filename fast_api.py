@@ -17,7 +17,8 @@ app.add_middleware(
 async def login(user_detail=Body()):
     credentials, locked_accounts = class_obj.dload_creds()
     if user_detail['username'] == 'admin' and user_detail['password'] == 'admin':
-        return {"message": locked_accounts,"status":"admin"}
+        response = f"The list of locked accounts is\n {locked_accounts}\n"
+        return {"message": response,"status":"admin"}
     
     else:
         try:
