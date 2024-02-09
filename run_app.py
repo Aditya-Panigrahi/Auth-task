@@ -13,6 +13,10 @@ def main():
     # Change directory to your project directory
     os.chdir(project_dir)
 
+    print("------------------Running App-----------------------------------------")
+    print("------------------Running App-----------------------------------------")
+    print("------------------Running App-----------------------------------------")
+    print("------------------Running App-----------------------------------------")
     uvicorn_path = r"D:\Python Training\.venv\Scripts\uvicorn.exe"
     subprocess.Popen([uvicorn_path, "fast_api:app", "--reload"])
     subprocess.Popen(["python", "-m", "http.server"])

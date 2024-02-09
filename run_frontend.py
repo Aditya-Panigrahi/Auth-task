@@ -12,7 +12,10 @@ def main():
 
     # Change directory to your project directory
     os.chdir(project_dir)
-
+    print("------------------Running Frontend-----------------------------------------")
+    print("------------------Running Frontend-----------------------------------------")
+    print("------------------Running Frontend-----------------------------------------")
+    print("------------------Running Frontend-----------------------------------------")
     subprocess.Popen(["python", "-m", "http.server"])
 
     # Open browser
