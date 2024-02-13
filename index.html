@@ -132,7 +132,8 @@
                     text: "Welcome Admin. Redirecting to success page.",
                     timeout: 3000
                 }).show();
-                window.location.href = 'success.html?message=' + encodeURIComponent(data.message);
+                //window.location.href = 'success.html?message=' + encodeURIComponent(data.message);
+                window.location.href = 'admin.html?message=' + encodeURIComponent(data.message);
             }
 
             else if (data.status === "success") {
