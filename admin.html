@@ -104,47 +104,84 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const params = new URLSearchParams(window.location.search);
-            const lockedAccounts = params.get('message');
-    
-            console.log("Received locked accounts:", lockedAccounts);
-    
-            if (lockedAccounts) {
-                const lockedAccountsArray = lockedAccounts.split(',');
-                console.log("Parsed locked accounts array:", lockedAccountsArray);
-    
-                const tableBody = document.querySelector("#lockedAccountsTable tbody");
-                lockedAccountsArray.forEach(account => {
-                    const row = document.createElement("tr");
-                    const cell = document.createElement("td");
-                    cell.textContent = account.trim(); // trim whitespace around the account name
-                    row.appendChild(cell);
-    
-                    // Create the Unlock button and append it to the row
-                    const actionCell = document.createElement("td");
-                    const unlockButton = document.createElement("button");
-                    unlockButton.classList.add("unlock-button");
-                    unlockButton.textContent = "Unlock";
-                    actionCell.appendChild(unlockButton);
-                    row.appendChild(actionCell);
-    
-                    tableBody.appendChild(row);
-                });
+        let lockedAccountsArray = [];
+         document.addEventListener("DOMContentLoaded", function() {
+        const params = new URLSearchParams(window.location.search);
+         lockedAccountsArray = params.get('message');
+        const tableBody = document.querySelector("#lockedAccountsTable tbody");
+
+        console.log("Received locked accounts:", lockedAccountsArray);
+
+        if (lockedAccountsArray) {
+            const lockedAccounts = lockedAccountsArray.split(',');
+            console.log("Parsed locked accounts array:", lockedAccounts);
+            renderLockedAccounts(lockedAccounts);
+        }
+
+        function renderLockedAccounts(lockedAccountsArray) {
+            tableBody.innerHTML = ''; // Clear the table body
+            lockedAccountsArray.forEach(account => {
+                const row = document.createElement("tr");
+                const cell = document.createElement("td");
+                cell.textContent = account.trim(); // trim whitespace around the account name
+                row.appendChild(cell);
+
+                // Create the Unlock button and append it to the row
+                const actionCell = document.createElement("td");
+                const unlockButton = document.createElement("button");
+                unlockButton.classList.add("unlock-button");
+                unlockButton.textContent = "Unlock";
+                // Add an event listener to call unlockAccount function with the username
+                unlockButton.addEventListener('click', () => unlockAccount(account,lockedAccountsArray));
+                actionCell.appendChild(unlockButton);
+                row.appendChild(actionCell);
+
+                tableBody.appendChild(row);
+            });
+        }
+
+        async function unlockAccount(username,lockedAccountsArray) {
+            // Remove the unlocked account from the lockedAccountsArray array
+            console.log(username);
+            const index = lockedAccountsArray.indexOf(username);
+            console.log(index);
+            if (index > -1) {
+                lockedAccountsArray.splice(index, 1);
+                console.log(lockedAccountsArray);
             }
-        });
+            // Update the table
+            renderLockedAccounts(lockedAccountsArray);
+            // Update the backend with the new lockedAccountsArray array
+            try {
+                const response = await fetch('http://127.0.0.1:8000/updateLockedAccounts', {
+                    method: 'put',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify( {"locked_list": lockedAccountsArray} )
+                });
+
+                if (response.ok) {
+                    console.log('Locked accounts updated successfully');
+                } else {
+                    console.error('Failed to update locked accounts');
+                }
+            } catch (error) {
+                console.error('Error updating locked accounts:', error);
+            }
+        }
+
+    });
+    function logout() {
+        // Redirect to index.html
+        window.location.href = "/index.html";
+    }
     </script>
 
     <div class="logout-button">
         <button onclick="logout()">Logout</button>
     </div>
 
-    <script>
-        function logout() {
-            // Redirect to index.html
-            window.location.href = "index.html";
-        }
-    </script>
 
 </div>
 

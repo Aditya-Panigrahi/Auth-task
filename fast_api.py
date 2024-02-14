@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import FastAPI, HTTPException,Body
 from password_auth_api import Authenticator
 from fetch_config import class_obj
@@ -31,6 +32,10 @@ async def login(user_detail=Body()):
                 return {"message": "Account is locked","status":"error"}
             response,status = Authenticator.password_auth(stored_username, user_detail['password'])
             return {"message": response,"status": status}
-    
+
+@app.put("/updateLockedAccounts")
+async def update_locked_accounts(lockedAccounts=Body()):
+    class_obj.uload_creds(lockedAccounts["locked_list"])
+    return {"message": "Locked accounts updated successfully"}
 
 #uvicorn fast_api:app --reload
