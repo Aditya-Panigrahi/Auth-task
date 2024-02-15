@@ -11,9 +11,11 @@ class Authenticator:
         
         if password == credentials[username]["password"]:  
             successful_attempts += 1
+            unsuccessful_attempts = 0
             lock_attempts = 0
             user_data["successful_attempts"] = successful_attempts
-            user_data["unsuccessful_attempts"] = 0
+            user_data["unsuccessful_attempts"] = unsuccessful_attempts
+            user_data["lock_attempts"] = lock_attempts
             response = f"Credentials match. Login successful!\nTotal attempts: {successful_attempts + unsuccessful_attempts}\nSuccessful attempts: {successful_attempts}\nUnsuccessful attempts: {unsuccessful_attempts}\n" 
             status = "success"  
             return response,status     

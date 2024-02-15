@@ -3,6 +3,7 @@ from fastapi import FastAPI, HTTPException,Body
 from password_auth_api import Authenticator
 from fetch_config import class_obj
 from fastapi.middleware.cors import CORSMiddleware
+import password_auth_api
 
 app = FastAPI()
 
@@ -36,6 +37,7 @@ async def login(user_detail=Body()):
 @app.put("/updateLockedAccounts")
 async def update_locked_accounts(lockedAccounts=Body()):
     class_obj.uload_creds(lockedAccounts["locked_list"])
+    password_auth_api.locked_accounts=lockedAccounts["locked_list"]
     return {"message": "Locked accounts updated successfully"}
 
 #uvicorn fast_api:app --reload
